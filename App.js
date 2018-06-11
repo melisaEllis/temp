@@ -1,17 +1,29 @@
 
 import React, { Component } from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
 import {
   Platform,
   StyleSheet,
   Text,
   View,
-  StatusBar
+  StatusBar,
+  Image,
+  Linking
 } from 'react-native';
 
 import Screen from "./app/components/Screen";
 import Swiper from "./app/components/Swiper";
 import Boiler from "./app/components/Boiler";
+import {createDrawerNavigator, DrawerItems} from 'react-navigation'
+import HomeScreen from './HomeScreen'
+import AboutUs from './AboutUs'
+import Services from './Services'
+import ContactUs from './ContactUs'
+import BLOG from './BLOG'
+import SettingsScreen from './SettingsScreen'
+import FAQ from './FAQ'
+
+import {Container, Content, Header, Body, Icon} from 'native-base'
 
 
 class Home extends Component<{}> {
@@ -54,10 +66,55 @@ export default App = StackNavigator({
   Boiler: {
     screen: Boiler,
     navigationOptions: {
-      title: "Boiler"
+      title: "HomeScreen"
     }
   }
 });
+
+const CustomDrawerContentComponent = (props) =>(
+  <Container>
+    <Header style={{height: 150, backgroundColor: '#330066'}}>
+      <Body>
+        <Image source={require('./pblogo.png')}/>
+      </Body>
+    </Header>
+    <Content>
+      <DrawerItems {...props}/>
+    </Content>
+  </Container>
+)
+
+const MyApp = createDrawerNavigator({
+
+  Home: {
+    screen: HomeScreen
+  },
+  AboutUs: {
+    screen: AboutUs
+  },
+  Services:{
+   screen: Services
+  },
+  ContactUs: {
+    screen: ContactUs
+  },
+  BLOG: {
+    screen: BLOG
+  },
+  Settings: {
+    screen: SettingsScreen
+  },
+  FAQ: {
+    screen: FAQ
+  }
+},{
+  initialRouteName:'Home',
+  drawerPosition: 'left',
+  contentComponent: CustomDrawerContentComponent,
+  drawerOpenRoute: 'DrawerOpen',
+  drawerCloseRoute: 'DrawerClose',
+  drawerToggleRoute: 'DrawerToggle'
+})
 
 const styles = StyleSheet.create({
   container: {
